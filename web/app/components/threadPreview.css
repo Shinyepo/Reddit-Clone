@@ -3,7 +3,7 @@
     height: 250px;
     background-color: #52616B;
     border-radius: 12px;
-    padding: 15px;
+    padding: 10px 5px;
     display: grid;
     grid-template-columns: 50px auto;
     grid-template-rows: 205px auto;
@@ -26,6 +26,13 @@
     transform: scaleY(-1);
 }
 
+.thread-data {
+    margin: 5px 0;
+}
+
+.thread-data, .thread-footer {
+    margin-left: 5px;
+}
 .thread-author {
     font-size: 0.7rem;
     font-style: italic;
