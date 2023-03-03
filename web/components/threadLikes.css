@@ -1,0 +1,13 @@
+
+.thread-likes {
+    width: 50px;
+    height: 100%;
+}
+
+.likes-count {
+    text-align: center;
+}
+
+.dislike {
+    transform: scaleY(-1);
+}

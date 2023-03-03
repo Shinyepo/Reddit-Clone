@@ -1,25 +1,19 @@
+"use client";
 import "./threadPreview.css";
 import { FC } from "react";
 import Image from "next/image";
+import { ThreadLikes } from "./threadLikes";
+import { useRouter } from "next/navigation";
 
 // TODO: make the footer buttons into divs and add onClick events
 // TODO: make the like and dislike button clickable with onClick event
 
 interface Props {}
 export const ThreadPreview: FC<Props> = () => {
+  const router = useRouter();
   return (
-    <div className="thread-container">
-      <div className="item1 thread-likes">
-        <Image src="/like.svg" alt="like button" width={48} height={48} />
-        <div className="likes-count">9999</div>
-        <Image
-          className="dislike"
-          src="/like.svg"
-          alt="dislike button"
-          width={48}
-          height={48}
-        />
-      </div>
+    <div className="thread-container" onClick={() => router.push("/thread")}>
+      <ThreadLikes />
       <div className="item2 thread-data">
         <div className="thread-author">
           created by ########### - 123 days ago
@@ -38,12 +32,12 @@ export const ThreadPreview: FC<Props> = () => {
         </div>
       </div>
       <div className="item3 thread-footer">
-          <Image alt="comment" src="/comment.svg" width={24} height={24} />
-          <p>Comment</p>
-          <Image alt="favourite" src="/favourite.svg" width={24} height={24} />
-          <p>Favourite</p>
-          <Image alt="share" src="/share.svg" width={24} height={24} />
-          <p>Share</p>
+        <Image alt="comment" src="/comment.svg" width={24} height={24} />
+        <p>Comment</p>
+        <Image alt="favourite" src="/favourite.svg" width={24} height={24} />
+        <p>Favourite</p>
+        <Image alt="share" src="/share.svg" width={24} height={24} />
+        <p>Share</p>
       </div>
     </div>
   );
