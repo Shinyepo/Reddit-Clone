@@ -1,8 +1,10 @@
-import Image from 'next/image'
-
+import Image from "next/image";
+import { ThreadPreview } from "./components/threadPreview";
 
 export default function Home() {
   return (
-    <h1>Im the main page</h1>
-  )
+    <>
+      <ThreadPreview />
+    </>
+  );
 }
