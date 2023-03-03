@@ -1,0 +1,35 @@
+.main-container {
+    padding: 30px 0;
+    display: grid;
+    grid-template-columns: repeat(3, 32%);
+}
+
+.threads {
+    padding: 15px 20px;
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+
+.sidebar {
+    padding: 15px 20px;
+}
+
+.about-header {
+    background-color: #C9D6DF;
+    border-start-start-radius: 10px;
+    border-start-end-radius: 10px;
+    color: black;
+}
+
+.about-content {
+    background-color: #52616B;
+    border-end-start-radius: 10px;
+    border-end-end-radius: 10px;
+}
+
+.about-content, .about-header {
+    width: 100%;
+    padding: 10px;
+}
+

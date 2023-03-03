@@ -7,6 +7,7 @@
     display: grid;
     grid-template-columns: 50px auto;
     grid-template-rows: 205px auto;
+    margin-bottom: 20px;
 }
 
 .thread-container:hover {
