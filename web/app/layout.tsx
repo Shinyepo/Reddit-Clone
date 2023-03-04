@@ -12,6 +12,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head></head>
       <body>
         <header>
           <div className="header-container">

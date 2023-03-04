@@ -128,6 +128,10 @@ header {
   border: 1px solid #788D9C;
 }
 
+.search-field::placeholder {
+  color: #C9D6DF;
+}
+
 .search-field:focus-visible {
   outline: 1px solid #8DA7B8;
   background-color: #52616B;
