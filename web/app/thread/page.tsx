@@ -9,17 +9,17 @@ export default function Home() {
         <div className="item1 thread-content">
           <ThreadLikes />
           <div className="thread-header">
-            <div className="thread-author">
+            <div data-testid="thread-author" className="thread-author">
               Created by ########## - 123 days ago
             </div>
-            <h1>
+            <h1 data-testid="thread-title">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit
               dolor facere consequatur deleniti velit corrupti exercitationem
               culpa similique quisquam hic aliquam tempore tenetur saepe placeat
               animi molestias a, sequi possimus?
             </h1>
           </div>
-          <div className="thread-main">
+          <div data-testid="thread-content" className="thread-main">
             {" "}
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed id quas
             voluptas illum blanditiis! Accusantium ea earum, eum quisquam
@@ -136,9 +136,9 @@ export default function Home() {
         </div>
         <div className="item2 thread-create-comment">
           <div className="new-comment">
-            <div className="new-comment-field">
+            <div data-testid="new-comment-field" className="new-comment-field">
               <p>Write a new comment</p>
-              <textarea className="comment-field" name="newComment" />
+              <textarea className="comment-field"  name="newComment" />
               <button type="submit" className="submit-comment">
                 Comment
               </button>

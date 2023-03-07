@@ -1,7 +1,6 @@
 "use client";
 import "./threadPreview.css";
 import { FC } from "react";
-import Image from "next/image";
 import { ThreadLikes } from "./threadLikes";
 import { useRouter } from "next/navigation";
 import { ThreadFooter } from "./threadFooter";
@@ -13,26 +12,25 @@ interface Props {}
 export const ThreadPreview: FC<Props> = () => {
   const router = useRouter();
   return (
-    <div className="preview-container" onClick={() => router.push("/thread")}>
+    <div role="link" className="preview-container" onClick={() => router.push("/thread")}>
       <ThreadLikes />
-      <div className="item2 thread-data">
-        <div className="preview-author">
+      <div className="thread-data">
+        <div data-testid="thread-author" className="preview-author">
           created by ########### - 123 days ago
         </div>
-        <div className="preview-title">
+        <div data-testid="thread-title" className="preview-title">
           <h2>
             Fancy thread title for testing purposes. Lets make it a bit longer
             to see how it behaves.
           </h2>
         </div>
-        <div className="preview-content">
+        <div data-testid="thread-content" className="preview-content">
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus
           voluptate eveniet sed aut totam itaque non officiis similique enim
           officia commodi doloribus magnam, incidunt dolore repudiandae
           inventore nesciunt est. Blanditiis.
         </div>
       </div>
-      
         <ThreadFooter />
     </div>
   );

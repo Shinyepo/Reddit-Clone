@@ -3,7 +3,7 @@ import "./threadFooter.css"
 
 export const ThreadFooter = () => {
   return (
-    <div className="thread-footer">
+    <div data-testid="thread-footer" className="thread-footer">
       <Image alt="comment" src="/comment.svg" width={24} height={24} />
       <p>Comment</p>
       <Image alt="favourite" src="/favourite.svg" width={24} height={24} />

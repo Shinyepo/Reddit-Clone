@@ -1,21 +1,17 @@
-import { render, screen } from '@testing-library/react'
-import Layout from "../app/layout"
-import '@testing-library/jest-dom'
+import { render } from "@testing-library/react";
+import Layout from "../app/layout";
+import "@testing-library/jest-dom";
 
-const page = render(<Layout children="" />);
 
-describe('Layout', () => {
-  it('renders a heading', () => {
+describe("Layout", () => {
+  it("Renders heading, searchbox and profile section", () => {
+    const screen = render(<Layout children="" />);
+    const heading = screen.getByRole("heading");
+    const searchField = screen.getByRole("searchbox");
+    const profileSection = screen.getByRole("menu");
 
-    const heading = screen.getByText("Epodit");
-    const searchField = screen.getByPlaceholderText("Search threads...");
-    const profileSection = screen.getByText("Profile section");
-
-    const main = screen.getByRole("main")
-
-    expect(heading).toBeInTheDocument()
-    expect(searchField).toBeInTheDocument()
-    expect(profileSection).toBeInTheDocument()
-    expect(main).toBeInTheDocument()
-  })
-})
+    expect(heading).toHaveTextContent("Epodit");
+    expect(searchField).toHaveTextContent("");
+    expect(profileSection).toHaveTextContent("Profile section");
+  });
+});

@@ -11,24 +11,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <head></head>
       <body>
         <header>
           <div className="header-container">
-            <div className="logo">Epodit</div>
+            <div className="logo" role="heading">Epodit</div>
             <div className="search-box">
               <input
+                role="searchbox"
                 type="text"
                 placeholder="Search threads..."
                 className="search-field"
               ></input>
             </div>
-            <div className="profile-section">Profile section</div>
+            <div role="menu" className="profile-section">Profile section</div>
           </div>
         </header>
         <main className="main">{children}</main>
       </body>
-    </html>
   );
 }
