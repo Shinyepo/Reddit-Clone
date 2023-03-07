@@ -1,4 +1,5 @@
 import "./globals.css";
+import React from "react";
 
 export const metadata = {
   title: "Epodit",
@@ -11,22 +12,30 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-      <body>
-        <header>
-          <div className="header-container">
-            <div className="logo" role="heading">Epodit</div>
-            <div className="search-box">
-              <input
-                role="searchbox"
-                type="text"
-                placeholder="Search threads..."
-                className="search-field"
-              ></input>
+    <React.Fragment>
+      <html lang="en">
+        <body>
+          <header>
+            <div className="header-container">
+              <div className="logo" role="heading">
+                Epodit
+              </div>
+              <div className="search-box">
+                <input
+                  role="searchbox"
+                  type="text"
+                  placeholder="Search threads..."
+                  className="search-field"
+                ></input>
+              </div>
+              <div role="menu" className="profile-section">
+                Profile section
+              </div>
             </div>
-            <div role="menu" className="profile-section">Profile section</div>
-          </div>
-        </header>
-        <main className="main">{children}</main>
-      </body>
+          </header>
+          <main className="main">{children}</main>
+        </body>
+      </html>
+    </React.Fragment>
   );
 }
