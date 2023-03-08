@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import Home from "../app/page";
 import "@testing-library/jest-dom";
 import { useRouter } from "next/navigation";
@@ -24,5 +24,17 @@ describe("Home", () => {
 
     const comp = screen.getByRole("article");
     expect(comp.childElementCount).toBeGreaterThan(0);
+  });
+  it("Displays new thread container with redirect functionality", () => {
+    const push = jest.fn();
+    (useRouter as jest.Mock).mockImplementation(() => ({ push }));
+    render(<Home />);
+
+    const avatar = screen.getByTestId("new-avatar");
+    const link = screen.getByTestId("input-redirect");
+
+    link.click();
+    expect(push).toHaveBeenCalledWith("/submit");
+    expect(avatar).toBeInTheDocument();
   });
 });

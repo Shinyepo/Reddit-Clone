@@ -1,0 +1,73 @@
+.new-thread {
+    display: grid;
+    grid-template-columns: 65% 35%;
+}
+
+.edit-container {
+    width: 100%;
+    padding: 15px;
+    background-color: #52616B;
+    border-radius: 8px;
+}
+
+.new-avatar {
+    width: 48px;
+    height: 48px;
+    background-color: #1E2022;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.new-author {
+    display: flex;
+    align-items: center;
+}
+
+.new-title, .new-content {
+    margin-top: 20px;
+}
+
+.new-thread-title {
+    height: 45px;
+}
+
+.new-title input, .new-content textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background-color: #627480;
+    border: 1px solid #788D9C;
+    font-size: 1.1rem;
+    margin-top: 5px;
+}
+
+.new-content textarea {
+    resize: vertical;
+    min-height: 150px;
+    max-height: 400px;
+}
+
+.new-title input::placeholder, .new-content textarea::placeholder {
+    color: #C9D6DF;
+}
+
+.new-title input:focus-visible, .new-content textarea:focus-visible {
+    outline: 1px solid #8DA7B8;
+    background-color: #52616B;
+}
+
+.submit-thread {
+    display: block;
+    margin: 0 0 0 auto;
+    padding: 10px;
+    margin-top: 5px;
+    background-color: #1E2022;
+    border: 1px solid white;
+    transition: 0.2s;
+}
+
+
+.submit-thread:hover {
+    background-color: #F0F5F9;
+    color: black;
+}
