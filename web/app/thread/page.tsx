@@ -1,3 +1,4 @@
+import { ThreadComment } from "@/components/threadComment";
 import { ThreadFooter } from "@/components/threadFooter";
 import { ThreadLikes } from "@/components/threadLikes";
 import "./page.css";
@@ -146,7 +147,11 @@ export default function Home() {
           </div>
         </div>
         <div className="item3">
-          <div className="thread-comments"></div>
+          <div data-testid="comment-section" className="thread-comments">
+            <ThreadComment />
+            <ThreadComment />
+            <ThreadComment />
+          </div>
         </div>
       </div>
     </div>

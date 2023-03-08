@@ -23,4 +23,10 @@ describe("Thread Page", () => {
     expect(textarea).toBeInTheDocument();
     expect(button).toBeInTheDocument();
   });
+  it("Displays comment section with comments", () => {
+    render(<Home />);
+    const section = screen.getByTestId("comment-section");
+
+    expect(section.childElementCount).toBeGreaterThan(0);
+  });
 });

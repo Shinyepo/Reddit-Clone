@@ -11,10 +11,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
+    <html>
       <body>
         <header>
           <div className="header-container">
-            <div className="logo" role="heading">Epodit</div>
+            <div className="logo" role="heading"><a href="/">Epodit</a></div>
             <div className="search-box">
               <input
                 role="searchbox"
@@ -28,5 +29,6 @@ export default function RootLayout({
         </header>
         <main className="main">{children}</main>
       </body>
+      </html>
   );
 }
