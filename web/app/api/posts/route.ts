@@ -7,10 +7,10 @@ export async function GET() {
     orderBy: {
       createdAt: "desc",
     },
+    include: {
+      author: true,
+    },
   });
-
-  console.log(data);
-
   return NextResponse.json({ posts: data });
 }
 
