@@ -1,3 +1,4 @@
+import { ToastProvider } from "@/toast";
 import "./globals.css";
 
 export const metadata = {
@@ -11,24 +12,30 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html>
-      <body>
-        <header>
-          <div className="header-container">
-            <div className="logo" role="heading"><a href="/">Epodit</a></div>
-            <div className="search-box">
-              <input
-                role="searchbox"
-                type="text"
-                placeholder="Search threads..."
-                className="search-field"
-              ></input>
+    <ToastProvider>
+      <html>
+        <body>
+          <header>
+            <div className="header-container">
+              <div className="logo" role="heading">
+                <a href="/">Epodit</a>
+              </div>
+              <div className="search-box">
+                <input
+                  role="searchbox"
+                  type="text"
+                  placeholder="Search threads..."
+                  className="search-field"
+                ></input>
+              </div>
+              <div role="menu" className="profile-section">
+                Profile section
+              </div>
             </div>
-            <div role="menu" className="profile-section">Profile section</div>
-          </div>
-        </header>
-        <main className="main">{children}</main>
-      </body>
+          </header>
+          <main className="main">{children}</main>
+        </body>
       </html>
+    </ToastProvider>
   );
 }
