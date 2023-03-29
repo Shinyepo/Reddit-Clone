@@ -11,7 +11,38 @@ datasource db {
 }
 
 model Post {
-  id Int @id @default(autoincrement())
-  author String
-  authorId Int
+  id        Int       @id @default(autoincrement())
+  author    User?     @relation(fields: [authorId], references: [id])
+  authorId  Int
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  title     String
+  content   String
+  likes     Int
+  dislikes  Int
+  comments  Comment[]
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  author    User?    @relation(fields: [authorId], references: [id])
+  authorId  Int
+  post      Post?    @relation(fields: [postId], references: [id])
+  postId    Int
+  parentId  Int
+  content   String
+  likes     Int
+  dislikes  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  email     String    @unique
+  password  String
+  name      String?
+  posts     Post[]
+  comments  Comment[]
 }
