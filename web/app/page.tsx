@@ -25,6 +25,7 @@ const getPosts = async () => {
 
 export default function Home() {
   const router = useRouter();
+
   const [posts, setPosts] = useState<(Post & { author: User | null })[]>(
     new Array()
   );
@@ -53,7 +54,6 @@ export default function Home() {
             <input type="text" placeholder="Create new thread" />
           </div>
         </div>
-        
           {posts.length > 0
             ? posts.map((post) => {
                 return (
@@ -69,7 +69,8 @@ export default function Home() {
                   />
                 );
               })
-            : <Loading />}
+            : <><Loading /><Loading /><Loading /><Loading /><Loading /></>}
+            
       </div>
       <div data-testid="sidebar" className="sidebar">
         <div data-testid="about" className="about">

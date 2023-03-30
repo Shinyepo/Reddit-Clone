@@ -4,18 +4,14 @@ import "../components/threadPreview.css";
 
 export default function Loading() {
   return (
-    <div role="link" className="preview-container">
-      <ThreadLikes />
-      <div className="thread-data">
-        <div data-testid="thread-author" className="preview-author">
-          created by
+    <div role="link" className="mock-container">
+      <div className="preview-loading">
+        <div className="loading-container">
+          <div></div>
+          <div></div>
+          <div></div>
         </div>
-        <div data-testid="thread-title" className="preview-title">
-          <h2></h2>
-        </div>
-        <div data-testid="thread-content" className="preview-content"></div>
       </div>
-      <ThreadFooter />
     </div>
   );
 }
