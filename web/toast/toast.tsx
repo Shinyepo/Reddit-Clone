@@ -1,6 +1,6 @@
+
 import { useTimeout } from "@/utils/useTimeout";
-import React, { FC, useRef, useState } from "react";
-import { ToastProps } from "./toastProvider";
+import React, { FC, useState } from "react";
 
 interface Props {
   close: () => void;

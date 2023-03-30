@@ -10,11 +10,15 @@ export const ThreadLikes: FC<Props> = () => {
   return (
     <div data-testid="thread-likes" className="thread-likes">
       <Image
+        className="like"
         src="/like.svg"
         alt="like button"
         width={48}
         height={48}
-        onClick={(e) => {e.stopPropagation(); setLikes(likes + 1)}}
+        onClick={(e) => {
+          e.stopPropagation();
+          setLikes(likes + 1);
+        }}
       />
       <div data-testid="like-count" className="likes-count">
         {likes}
@@ -25,7 +29,10 @@ export const ThreadLikes: FC<Props> = () => {
         alt="dislike button"
         width={48}
         height={48}
-        onClick={(e) => {e.stopPropagation(); setLikes(likes - 1)}}
+        onClick={(e) => {
+          e.stopPropagation();
+          setLikes(likes - 1);
+        }}
       />
     </div>
   );
