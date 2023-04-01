@@ -4,7 +4,7 @@ import { ThreadPreview } from "@/components/threadPreview";
 import { useToast } from "@/toast";
 import { Post, User } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./page.css";
 
 const getPosts = async () => {

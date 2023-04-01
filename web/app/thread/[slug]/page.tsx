@@ -4,14 +4,18 @@ import { ThreadFooter } from "@/components/threadFooter";
 import { ThreadLikes } from "@/components/threadLikes";
 import { useToast } from "@/toast";
 import { formatTimeAgo } from "@/utils/relativeTime";
-import { Post, User } from "@prisma/client";
+import { Post, User, Comment } from "@prisma/client";
 import { useEffect, useState } from "react";
 import Loading from "./loading";
 import "./page.css";
 
 interface FullPost extends Post {
   author: User | null;
-  comments: Comment[] | null;
+  comments: CommentWithAuthor[] | null;
+}
+
+interface CommentWithAuthor extends Comment {
+  author: User | null;
 }
 
 const getData = async (id: string) => {
@@ -46,10 +50,9 @@ export default function Home({ params }: { params: { slug: string } }) {
     })();
   }, []);
 
-
   let body = <Loading />;
   let comments = <Loading />;
-  
+
   if (thread) {
     body = (
       <div className="item1 thread-content">
@@ -67,11 +70,16 @@ export default function Home({ params }: { params: { slug: string } }) {
         <ThreadFooter />
       </div>
     );
+
     comments = (
       <>
-        <ThreadComment />
-        <ThreadComment />
-        <ThreadComment />
+        {thread.comments && thread.comments.length > 0 ? (
+          thread.comments!.map((x, idx) => {
+            return <ThreadComment key={idx} author={x.author} comment={x} />;
+          })
+        ) : (
+          <div className="no-comments">No Comments...</div>
+        )}
       </>
     );
   }

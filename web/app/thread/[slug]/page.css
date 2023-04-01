@@ -100,3 +100,11 @@
     background-color: #F0F5F9;
     color:black;
 }
+
+.no-comments {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+    min-height: 200px;
+}

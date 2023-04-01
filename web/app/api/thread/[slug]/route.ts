@@ -6,9 +6,8 @@ export async function GET(
   _: NextRequest,
   { params }: { params: { slug: string } }
 ) {
-  
   const id = parseInt(params.slug);
-  
+
   if (!id) {
     return notFound();
   }
@@ -18,7 +17,11 @@ export async function GET(
     },
     include: {
       author: true,
-      comments: true,
+      comments: {
+        include: {
+          author: true,
+        },
+      },
     },
   });
   if (!data) return notFound();

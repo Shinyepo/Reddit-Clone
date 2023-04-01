@@ -1,37 +1,34 @@
 "use client";
+import { formatTimeAgo } from "@/utils/relativeTime";
+import { Comment, User } from "@prisma/client";
 import Image from "next/image";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import "./threadComment.css";
 
-interface Props {}
+interface Props {
+  comment: Comment;
+  author: User | null;
+}
 
-export const ThreadComment: FC<Props> = () => {
-  const [likes, setLikes] = useState(0);
+export const ThreadComment: FC<Props> = ({ author, comment }) => {
+  const [likesCount, setLikesCount] = useState(0);
+  const { content, createdAt, dislikes, likes, updatedAt } = comment;
+
+  useEffect(() => {
+    setLikesCount(likes - dislikes);
+  }, []);
 
   return (
     <div className="thread-comment">
       <div data-testid="comment-author" className="thread-author">
         <div data-testid="comment-avatar" className="comment-avatar"></div>
-        ########### - 123 days ago</div>
+        created by {author?.name!} - {formatTimeAgo(createdAt)}{" "}
+        {createdAt === updatedAt
+          ? null
+          : "- edited " + formatTimeAgo(updatedAt)}
+      </div>
       <div data-testid="comment-content" className="comment-content">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus sunt
-        rerum illo blanditiis. Deleniti nihil ipsa, velit necessitatibus natus,
-        veritatis suscipit laborum distinctio odit inventore in vel ut dolor
-        fugit? Numquam, voluptates sed? Fugiat suscipit aliquam officiis
-        voluptates similique laudantium quae maiores. Culpa id vero molestiae
-        nam fuga laudantium odit deserunt recusandae consequuntur facilis!
-        Ducimus corrupti saepe iure atque illo? Architecto sed nostrum minima
-        veritatis recusandae alias amet provident perferendis fuga eaque
-        consectetur labore, atque neque cupiditate! Voluptatum eveniet quidem
-        itaque, repellat, facilis cupiditate aliquam tempora corrupti facere
-        harum consectetur? Dignissimos autem, asperiores a, voluptates deserunt
-        officia, consequatur aliquid quia facilis nihil iure architecto! Nam
-        quidem, quas ipsum et, vero voluptas nesciunt corrupti quasi molestias
-        aut veritatis. Laboriosam, quis ipsam. Consequatur ipsum quibusdam
-        magnam voluptatem esse, voluptatum reiciendis rerum praesentium eius sit
-        veniam similique, iusto tempore molestias reprehenderit earum maiores ea
-        alias incidunt doloremque dolore explicabo quaerat. Assumenda, cumque
-        qui.
+        {content}
       </div>
       <div data-testid="comment-footer" className="comment-footer">
         <div data-testid="comment-likes" className="comment-likes">
@@ -42,7 +39,7 @@ export const ThreadComment: FC<Props> = () => {
             height={24}
             onClick={(e) => {
               e.stopPropagation();
-              setLikes(likes + 1);
+              setLikesCount(likes + 1);
             }}
           />
           {likes}
@@ -54,7 +51,7 @@ export const ThreadComment: FC<Props> = () => {
             height={24}
             onClick={(e) => {
               e.stopPropagation();
-              setLikes(likes - 1);
+              setLikesCount(likes - 1);
             }}
           />
         </div>
