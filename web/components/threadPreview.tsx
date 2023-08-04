@@ -1,6 +1,6 @@
 "use client";
 import "./threadPreview.css";
-import { FC } from "react";
+import { Dispatch, FC, SetStateAction } from "react";
 import { ThreadLikes } from "./threadLikes";
 import { useRouter } from "next/navigation";
 import { ThreadFooter } from "./threadFooter";
@@ -17,6 +17,8 @@ interface Props {
   likes: number;
   dislikes: number;
   createdAt: Date;
+  show: Boolean;
+  setShow: Dispatch<SetStateAction<Boolean>>;
 }
 
 export const ThreadPreview: FC<Props> = ({
@@ -27,6 +29,8 @@ export const ThreadPreview: FC<Props> = ({
   createdAt,
   dislikes,
   likes,
+  show,
+  setShow
 }) => {
   const router = useRouter();
 
@@ -51,7 +55,7 @@ export const ThreadPreview: FC<Props> = ({
           {content.length > 360 ? content.slice(0, 360) + "..." : content}
         </div>
       </div>
-      <ThreadFooter />
+      <ThreadFooter id={id.toString()} showing={show} setShowing={setShow}/>
     </div>
   );
 };

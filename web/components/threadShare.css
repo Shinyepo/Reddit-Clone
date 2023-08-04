@@ -1,0 +1,13 @@
+.thread-share-modal {
+    display: flex;
+    justify-content: space-evenly;
+    box-shadow: rgba(251, 251, 255, 0.096) 0px 7px 29px 0px;
+    background-color: #52616B;
+    border: solid 2px #8DA7B8;
+    border-radius: 12px;
+    position:  absolute;
+    width: 650px;
+    height: 250px;
+    top: calc(50% - 125px);
+    left: calc(50% - 325px);
+  }

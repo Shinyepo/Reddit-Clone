@@ -29,6 +29,7 @@ export default function Home() {
   const [posts, setPosts] = useState<(Post & { author: User | null })[]>(
     new Array()
   );
+  const [showShare, setShowShare] = useState<Boolean>(false);
   const toast = useToast();
 
   useEffect(() => {
@@ -66,6 +67,8 @@ export default function Home() {
                     likes={post.likes}
                     dislikes={post.dislikes}
                     createdAt={post.createdAt}
+                    show={showShare}
+                    setShow={setShowShare}
                   />
                 );
               })

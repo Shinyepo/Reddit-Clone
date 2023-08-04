@@ -10,6 +10,11 @@
     display: inline-block;
 }
 
-.thread-footer img:not(:first-child) {
+.thread-footer .thread-footer-button:not(:first-child) {
     margin-left: 10px;
+}
+
+.thread-footer-button {
+    display: flex;
+    align-items: center;
 }

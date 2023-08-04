@@ -27,7 +27,7 @@ const getData = async (id: string) => {
       data: {} as FullPost,
     };
   }
-  
+
   const json = await res.json();
   const thread = json.thread as FullPost;
 
@@ -41,8 +41,8 @@ export default function Home({ params }: { params: { slug: string } }) {
   const [thread, setThread] = useState<FullPost>();
   const [comment, setComment] = useState<string>("");
   const commentRef = useRef<HTMLDivElement | null>(null);
+  const [showShare, setShowShare] = useState<Boolean>(false);
   const toast = useToast();
-  // const router = useRouter();
 
   useEffect(() => {
     (async () => {
@@ -82,7 +82,7 @@ export default function Home({ params }: { params: { slug: string } }) {
       setThread((prev): FullPost => {
         return {
           ...prev!,
-          comments: [...prev!.comments!, data],
+          comments: [data, ...prev!.comments!],
         } as FullPost;
       });
       setComment("");
@@ -114,7 +114,7 @@ export default function Home({ params }: { params: { slug: string } }) {
         <div data-testid="thread-content" className="thread-main">
           {thread.content}
         </div>
-        <ThreadFooter />
+        <ThreadFooter id={params.slug} showing={showShare} setShowing={setShowShare} />
       </div>
     );
 
@@ -162,10 +162,10 @@ export default function Home({ params }: { params: { slug: string } }) {
           </div>
         </div>
         <div className="item3">
+          <div className="scroll-hook" ref={commentRef}></div>
           <div data-testid="comment-section" className="thread-comments">
             {comments}
           </div>
-          <div className="scroll-hook" ref={commentRef}></div>
         </div>
       </div>
     </div>
