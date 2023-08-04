@@ -9,7 +9,7 @@ jest.mock("next/navigation", () => ({
 
 describe("Thread Preview", () => {
   it("Displays Thread Likes and Footer", () => {
-    render(<ThreadPreview />);
+    render(<ThreadPreview author="NoName" content="some content" createdAt={new Date()} dislikes={20} id={1} likes={40} title="Big Title"  />);
     const likes = screen.getByTestId("thread-likes");
     const footer = screen.getByTestId("thread-footer");
 
@@ -17,7 +17,7 @@ describe("Thread Preview", () => {
     expect(footer).toBeInTheDocument();
   });
   it("Displays author, title and content of the thread in a sliced version", () => {
-    render(<ThreadPreview />);
+    render(<ThreadPreview author="NoName" content="some content" createdAt={new Date()} dislikes={20} id={1} likes={40} title="Big Title" />);
 
     const author = screen.getByTestId("thread-author");
     const title = screen.getByTestId("thread-title");
@@ -30,12 +30,12 @@ describe("Thread Preview", () => {
   it("Clicking on the main div redirects to the thread", () => {
     const push = jest.fn();
     (useRouter as jest.Mock).mockImplementation(() => ({ push }));
-    render(<ThreadPreview />);
+    render(<ThreadPreview author="NoName" content="some content" createdAt={new Date()} dislikes={20} id={1} likes={40} title="Big Title" />);
 
     const clickable = screen.getByRole("link");
 
     clickable.click();
 
-    expect(push).toHaveBeenCalledWith("/thread");
+    expect(push).toHaveBeenCalledWith("/thread/1");
   });
 });

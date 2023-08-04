@@ -21,9 +21,45 @@ export async function GET(
         include: {
           author: true,
         },
+        orderBy: {
+          createdAt: "desc"
+        }
       },
     },
   });
   if (!data) return notFound();
   return NextResponse.json({ thread: data });
+}
+
+export async function POST(req: NextRequest) {
+  const { thread, content }: { thread: string; content: string } =
+    await req.json();
+  const postId = parseInt(thread);
+  if (!postId) {
+    return new NextResponse("Something went wrong.", {
+      status: 400,
+    });
+  }
+
+  const comment = await prisma.comment.create({
+    data: {
+      postId,
+      authorId: 1,
+      content,
+      dislikes: 0,
+      likes: 0,
+      parentId: 0,
+    },
+    include: {
+      author: true
+    }
+  });
+
+  if (!comment.id) {
+    return new NextResponse("Something went wrong.", {
+      status: 400,
+    });
+  }
+
+  return NextResponse.json({ comment: comment });
 }

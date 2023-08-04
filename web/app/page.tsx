@@ -1,5 +1,5 @@
 "use client";
-import Loading from "@/app/loading";
+import Loading from "../app/loading";
 import { ThreadPreview } from "@/components/threadPreview";
 import { useToast } from "@/toast";
 import { Post, User } from "@prisma/client";

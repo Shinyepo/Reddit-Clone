@@ -101,6 +101,12 @@
     color:black;
 }
 
+.submit-comment:disabled {
+    background-color: #52616B;
+    color: white;
+    border-color: #788D9C;
+}
+
 .no-comments {
     display: flex;
     justify-content: center;
@@ -108,3 +114,4 @@
     font-size: 1.3rem;
     min-height: 200px;
 }
+

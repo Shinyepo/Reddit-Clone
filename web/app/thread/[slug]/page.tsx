@@ -5,9 +5,10 @@ import { ThreadLikes } from "@/components/threadLikes";
 import { useToast } from "@/toast";
 import { formatTimeAgo } from "@/utils/relativeTime";
 import { Post, User, Comment } from "@prisma/client";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import Loading from "./loading";
 import "./page.css";
+import { useRouter } from "next/navigation";
 
 interface FullPost extends Post {
   author: User | null;
@@ -26,7 +27,7 @@ const getData = async (id: string) => {
       data: {} as FullPost,
     };
   }
-
+  
   const json = await res.json();
   const thread = json.thread as FullPost;
 
@@ -38,7 +39,10 @@ const getData = async (id: string) => {
 
 export default function Home({ params }: { params: { slug: string } }) {
   const [thread, setThread] = useState<FullPost>();
+  const [comment, setComment] = useState<string>("");
+  const commentRef = useRef<HTMLDivElement | null>(null);
   const toast = useToast();
+  // const router = useRouter();
 
   useEffect(() => {
     (async () => {
@@ -49,6 +53,49 @@ export default function Home({ params }: { params: { slug: string } }) {
       setThread(res.data);
     })();
   }, []);
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const data = {
+      thread: params.slug,
+      content: comment,
+    };
+
+    if (comment === "") {
+      toast.open({ type: "error", message: "Comment cannot be empty." });
+      return;
+    }
+
+    const json = JSON.stringify(data);
+    const req = await fetch("/api/thread/" + params.slug, {
+      method: "POST",
+      body: json,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (req.status === 200) {
+      const jsonData = await req.json();
+      const data = jsonData.comment as CommentWithAuthor;
+      setThread((prev): FullPost => {
+        return {
+          ...prev!,
+          comments: [...prev!.comments!, data],
+        } as FullPost;
+      });
+      setComment("");
+      commentRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+        inline: "nearest",
+      });
+
+      return toast.open({ type: "success", message: "Created new comment." });
+    }
+    return toast.open({ type: "error", message: "Something went wrong." });
+  };
 
   let body = <Loading />;
   let comments = <Loading />;
@@ -90,19 +137,35 @@ export default function Home({ params }: { params: { slug: string } }) {
         {body}
         <div className="item2 thread-create-comment">
           <div className="new-comment">
-            <div data-testid="new-comment-field" className="new-comment-field">
+            <form
+              data-testid="new-comment-field"
+              onSubmit={handleSubmit}
+              className="new-comment-field"
+            >
               <p>Write a new comment</p>
-              <textarea className="comment-field" name="newComment" />
-              <button type="submit" className="submit-comment">
+              <textarea
+                className="comment-field"
+                name="newComment"
+                id="newComment"
+                onChange={(e) => setComment(e.target.value)}
+                value={comment}
+                disabled={!!!thread}
+              />
+              <button
+                type="submit"
+                disabled={!!!thread}
+                className="submit-comment"
+              >
                 Comment
               </button>
-            </div>
+            </form>
           </div>
         </div>
         <div className="item3">
           <div data-testid="comment-section" className="thread-comments">
             {comments}
           </div>
+          <div className="scroll-hook" ref={commentRef}></div>
         </div>
       </div>
     </div>
