@@ -12,7 +12,7 @@ interface Props {
 
 export const ThreadFooter: FC<Props> = ({ id, showing, setShowing }) => {
   const [showShare, setShowShare] = useState<Boolean>(false);
-  const link = window.location.href + "/thread/" + id;
+  const link = window.location.origin + "/thread/" + id;
 
   const handleClick = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
@@ -20,12 +20,14 @@ export const ThreadFooter: FC<Props> = ({ id, showing, setShowing }) => {
     if (showing) return;
     setShowing(true);
     setShowShare(true);
+    window.document.body.style.overflow = 'hidden';
     return;
   };
 
   const handleShow = () => {
     setShowing(false);
     setShowShare(false);
+    window.document.body.style.overflow = 'hidden auto';
   }
   return (
     <div data-testid="thread-footer" className="thread-footer">

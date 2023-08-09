@@ -1,13 +1,65 @@
 .thread-share-modal {
-    display: flex;
-    justify-content: space-evenly;
-    box-shadow: rgba(251, 251, 255, 0.096) 0px 7px 29px 0px;
-    background-color: #52616B;
-    border: solid 2px #8DA7B8;
-    border-radius: 12px;
-    position:  absolute;
-    width: 650px;
-    height: 250px;
-    top: calc(50% - 125px);
-    left: calc(50% - 325px);
-  }
+  display: flex;
+  flex-direction: column;
+  box-shadow: rgba(251, 251, 255, 0.096) 0px 7px 29px 0px;
+  background-color: #52616B;
+  border: solid 2px #8DA7B8;
+  border-radius: 12px;
+  position: absolute;
+  width: 650px;
+  height: 250px;
+  top: calc(50% - 125px);
+  left: calc(50% - 325px);
+}
+
+.thread-share-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(105,105,105,0.5);
+}
+
+.thread-share-close {
+  position: absolute;
+  top: 24px;
+  right: 20px;
+  color: black;
+  cursor: pointer;
+}
+
+.thread-share-header {
+  font-size: 1.3rem;
+  padding: 20px 10px;
+  background-color: #C9D6DF;
+  border-start-start-radius: 10px;
+  border-start-end-radius: 10px;
+  color: black;
+  border-bottom: 1px solid #8DA7B8;
+}
+
+.thread-share-link {
+  margin: auto;
+  min-width: 500px;
+  display: flex;
+}
+
+.thread-share-input {
+  border-end-end-radius: 0px !important;
+  border-start-end-radius: 0px !important;
+}
+
+.thread-share-copy {
+  height: 100%;
+  width: 50px;
+  background-color: #788D9C;
+  border-end-end-radius: 10px;
+  border-start-end-radius: 10px;
+  cursor: pointer;
+  display: flex;
+}
+
+.thread-share-copy-img {
+  margin: auto;
+}

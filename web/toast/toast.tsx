@@ -42,7 +42,7 @@ export const Toast: FC<Props> = ({ close, type, message }) => {
   return (
     <div
       className={"toast " + (toDelete ? "toast-delete" : null)}
-      style={{ borderBottom: "3px solid" + color }}
+      style={{ borderBottom: "3px solid" + color, zIndex: 1000 }}
     >
       <div className="toast-title" style={{ color }}>
         {type.charAt(0).toUpperCase() + type.slice(1)}
