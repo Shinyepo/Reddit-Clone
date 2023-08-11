@@ -4,7 +4,7 @@ import { ThreadPreview } from "@/components/threadPreview";
 import { useToast } from "@/toast";
 import { Post, User } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import "./page.css";
 
 const getPosts = async () => {
@@ -28,6 +28,7 @@ export default function Home() {
   const [posts, setPosts] = useState<(Post & { author: User | null })[]>(
     new Array()
   );
+  const [title, setTitle] = useState<string>("");
   const [showShare, setShowShare] = useState<Boolean>(false);
   const toast = useToast();
 
@@ -41,6 +42,10 @@ export default function Home() {
     })();
   }, []);
 
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+  };
+
   return (
     <div className="main-container">
       <div className="threads" role="article">
@@ -49,30 +54,44 @@ export default function Home() {
           <div
             data-testid="input-redirect"
             className="fake-input"
-            onClick={() => router.push("/submit")}
           >
-            <input type="text" placeholder="Create new thread" />
+            <input
+              type="text"
+              placeholder="Create new thread"
+              onChange={handleChange}
+            />
+            <button
+              className="create-thread"
+              onClick={() => router.push("/submit" + (title !== "" ? "?title=" + title : ""))}
+            >Create</button>
           </div>
         </div>
-          {posts.length > 0
-            ? posts.map((post) => {
-                return (
-                  <ThreadPreview
-                    key={post.id}
-                    id={post.id}
-                    author={post.author!.username!}
-                    title={post.title}
-                    content={post.content}
-                    likes={post.likes}
-                    dislikes={post.dislikes}
-                    createdAt={post.createdAt}
-                    show={showShare}
-                    setShow={setShowShare}
-                  />
-                );
-              })
-            : <><Loading /><Loading /><Loading /><Loading /><Loading /></>}
-            
+        {posts.length > 0 ? (
+          posts.map((post) => {
+            return (
+              <ThreadPreview
+                key={post.id}
+                id={post.id}
+                author={post.author!.username!}
+                title={post.title}
+                content={post.content}
+                likes={post.likes}
+                dislikes={post.dislikes}
+                createdAt={post.createdAt}
+                show={showShare}
+                setShow={setShowShare}
+              />
+            );
+          })
+        ) : (
+          <>
+            <Loading />
+            <Loading />
+            <Loading />
+            <Loading />
+            <Loading />
+          </>
+        )}
       </div>
       <div data-testid="sidebar" className="sidebar">
         <div data-testid="about" className="about">

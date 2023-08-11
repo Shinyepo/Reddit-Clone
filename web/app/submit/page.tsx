@@ -1,12 +1,16 @@
 "use client";
 import { useToast } from "@/toast";
-import { useRouter } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { FormEvent } from "react";
 import "./page.css";
+import { useSearchParams, useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
   const toast = useToast();
   const router = useRouter();
+  const params = useSearchParams();
+  const title = params.get("title");
+  const { data } = useSession();
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { title, content } = e.target as typeof e.target & {
@@ -28,7 +32,7 @@ export default function Home() {
       },
     });
     if (res.status === 200) {
-      toast.open({ type: "success", message: "You created a new post."});
+      toast.open({ type: "success", message: "You created a new post." });
       return router.push("/");
     }
   };
@@ -37,7 +41,7 @@ export default function Home() {
       <form onSubmit={handleSubmit} className="edit-container">
         <div data-testid="new-author" className="new-author">
           <div className="new-avatar"></div>
-          ########
+          {data?.user?.username}
         </div>
         <div className="new-title">
           Title:
@@ -48,6 +52,7 @@ export default function Home() {
             name="title"
             className="new-thread-title"
             placeholder="Thread title..."
+            defaultValue={title ?? undefined}
           />
         </div>
         <div className="new-content">
@@ -66,7 +71,6 @@ export default function Home() {
         </div>
       </form>
       <div className="info-container"></div>
-      {/* <Toast message="debil" title="dddd" type="info" /> */}
     </div>
   );
 }

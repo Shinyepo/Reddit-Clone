@@ -27,6 +27,8 @@
     border-radius: 10px;
     background-color: #627480;
     border: 1px solid #788D9C;
+    border-end-end-radius: 0;
+    border-start-end-radius: 0;
 }
 
 .fake-input input::placeholder {
@@ -72,4 +74,20 @@
 .about-header {
     width: 100%;
     padding: 10px;
+}
+
+.create-thread {
+    display: block;
+    margin: 0 0 0 auto;
+    padding: 10px;
+    background-color: #627480;
+    border: 1px solid #788D9C;
+    transition: 0.2s;
+    border-end-end-radius: 12px;
+    border-start-end-radius: 12px;
+}
+
+
+.create-thread:hover {
+    background-color: #52616B;
 }
