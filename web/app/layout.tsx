@@ -1,6 +1,7 @@
-
 import { ToastProvider } from "@/toast";
 import "./globals.css";
+import { NextAuthProvider } from "@/app/providers/sessionProvider";
+import { Header } from "@/components/header";
 
 export const metadata = {
   title: "Epodit",
@@ -16,25 +17,10 @@ export default function RootLayout({
     <ToastProvider>
       <html>
         <body>
-          <header>
-            <div className="header-container">
-              <div className="logo" role="heading">
-                <a href="/">Epodit</a>
-              </div>
-              <div className="search-box">
-                <input
-                  role="searchbox"
-                  type="text"
-                  placeholder="Search threads..."
-                  className="search-field"
-                ></input>
-              </div>
-              <div role="menu" className="profile-section">
-                Profile section
-              </div>
-            </div>
-          </header>
-          <main className="main">{children}</main>
+          <NextAuthProvider>
+            <Header />
+            <main className="main">{children}</main>
+          </NextAuthProvider>
         </body>
       </html>
     </ToastProvider>

@@ -25,7 +25,6 @@ const getPosts = async () => {
 
 export default function Home() {
   const router = useRouter();
-
   const [posts, setPosts] = useState<(Post & { author: User | null })[]>(
     new Array()
   );
@@ -61,7 +60,7 @@ export default function Home() {
                   <ThreadPreview
                     key={post.id}
                     id={post.id}
-                    author={post.author!.name!}
+                    author={post.author!.username!}
                     title={post.title}
                     content={post.content}
                     likes={post.likes}

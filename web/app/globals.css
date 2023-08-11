@@ -94,49 +94,6 @@ a {
   }
 }
 
-/* ----- Header Section ----- */
-header {
-  height: 50px;
-  width: 100vw;
-  background-color: #52616B;
-}
-
-.header-container {
-  max-width: 1300px;
-  height: 100%;
-  margin: 0 auto;
-  display: flex;
-  flex: 1;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.header-container>div {
-  display: inline-block;
-  margin: auto 0;
-}
-
-.search-box {
-  width: 400px;
-}
-
-.search-field {
-  width: 100%;
-  padding: 8px 12px;
-  border-radius: 10px;
-  background-color: #627480;
-  border: 1px solid #788D9C;
-}
-
-.search-field::placeholder {
-  color: #C9D6DF;
-}
-
-.search-field:focus-visible {
-  outline: 1px solid #8DA7B8;
-  background-color: #52616B;
-}
-
 /* ----- Main section ----- */
 .main {
   max-width: 1200px;
