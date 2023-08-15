@@ -28,6 +28,7 @@ export default function Home() {
   const [posts, setPosts] = useState<(Post & { author: User | null })[]>(
     new Array()
   );
+  const [dataStatus, setDataStatus] = useState<"loading" | "error" | "success">("loading");
   const [title, setTitle] = useState<string>("");
   const [showShare, setShowShare] = useState<Boolean>(false);
   const toast = useToast();
@@ -36,15 +37,42 @@ export default function Home() {
     (async () => {
       const getData = await getPosts();
       if (getData.response !== "ok") {
+        setDataStatus("error");
         return toast.open({ type: "error", message: "Could not load posts." });
       }
       setPosts(getData.data);
+      setDataStatus("success");
     })();
   }, []);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
+
+  let body = <Loading />;
+
+  if (dataStatus === "success") {
+    if (posts.length > 0) {
+    body = <>{posts.map((post) => {
+      return (
+        <ThreadPreview
+          key={post.id}
+          id={post.id}
+          author={post.author!.username!}
+          title={post.title}
+          content={post.content}
+          likes={post.likes}
+          dislikes={post.dislikes}
+          createdAt={post.createdAt}
+          show={showShare}
+          setShow={setShowShare}
+        />
+      );
+    })}</>
+  } else {
+    body = <div>No Posts</div>;
+  }
+  }
 
   return (
     <div className="main-container">
@@ -66,32 +94,7 @@ export default function Home() {
             >Create</button>
           </div>
         </div>
-        {posts.length > 0 ? (
-          posts.map((post) => {
-            return (
-              <ThreadPreview
-                key={post.id}
-                id={post.id}
-                author={post.author!.username!}
-                title={post.title}
-                content={post.content}
-                likes={post.likes}
-                dislikes={post.dislikes}
-                createdAt={post.createdAt}
-                show={showShare}
-                setShow={setShowShare}
-              />
-            );
-          })
-        ) : (
-          <>
-            <Loading />
-            <Loading />
-            <Loading />
-            <Loading />
-            <Loading />
-          </>
-        )}
+        {body}
       </div>
       <div data-testid="sidebar" className="sidebar">
         <div data-testid="about" className="about">

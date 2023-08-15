@@ -17,7 +17,6 @@ export const ThreadComment: FC<Props> = ({ author, comment }) => {
   useEffect(() => {
     setLikesCount(likes - dislikes);
   }, []);
-  console.log(comment.createdAt);
   
   return (
     <div className="thread-comment">
