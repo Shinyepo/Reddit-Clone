@@ -2,10 +2,12 @@
 import Image from "next/image";
 import { FC, useState } from "react";
 import "./threadLikes.css";
+import { useSession } from "next-auth/react";
 
 interface Props {}
 
 export const ThreadLikes: FC<Props> = () => {
+  const session = useSession();
   const [likes, setLikes] = useState(0);
   return (
     <div data-testid="thread-likes" className="thread-likes">
@@ -17,6 +19,7 @@ export const ThreadLikes: FC<Props> = () => {
         height={48}
         onClick={(e) => {
           e.stopPropagation();
+          if (session.status !== "authenticated") return;
           setLikes(likes + 1);
         }}
       />
@@ -31,6 +34,7 @@ export const ThreadLikes: FC<Props> = () => {
         height={48}
         onClick={(e) => {
           e.stopPropagation();
+          if (session.status !== "authenticated") return;
           setLikes(likes - 1);
         }}
       />

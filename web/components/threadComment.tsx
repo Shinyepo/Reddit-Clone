@@ -23,7 +23,7 @@ export const ThreadComment: FC<Props> = ({ author, comment }) => {
     <div className="thread-comment">
       <div data-testid="comment-author" className="thread-author">
         <div data-testid="comment-avatar" className="comment-avatar"></div>
-        created by {author?.name!} - {formatTimeAgo(createdAt)}{" "}
+        created by {author?.username!} - {formatTimeAgo(createdAt)}{" "}
         <span data-testid="comment-edited">
           {(new Date(createdAt)).getTime() === (new Date(updatedAt)).getTime()
             ? null

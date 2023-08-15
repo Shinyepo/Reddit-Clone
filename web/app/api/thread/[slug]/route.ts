@@ -1,6 +1,8 @@
 import prisma from "@/lib/prisma";
-import { notFound } from "next/navigation";
+import { getServerSession } from "next-auth";
+import { notFound, redirect } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
+import { AuthOptions } from "../../auth/[...nextauth]/route";
 
 export async function GET(
   _: NextRequest,
@@ -32,6 +34,8 @@ export async function GET(
 }
 
 export async function POST(req: NextRequest) {
+  const session = await getServerSession(AuthOptions);
+  if (!session || !session.user) return redirect("/");
   const { thread, content }: { thread: string; content: string } =
     await req.json();
   const postId = parseInt(thread);
@@ -44,7 +48,7 @@ export async function POST(req: NextRequest) {
   const comment = await prisma.comment.create({
     data: {
       postId,
-      authorId: 1,
+      authorId: session.user.id,
       content,
       dislikes: 0,
       likes: 0,

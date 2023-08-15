@@ -52,9 +52,18 @@
 
 
 .thread-create-comment {
+    position: relative;
     min-height: 260px;
     max-height: 500px;
 }
+
+.thread-create-comment-auth {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 
 .new-comment {
     display: flex;
@@ -98,7 +107,7 @@
 
 .submit-comment:hover {
     background-color: #F0F5F9;
-    color:black;
+    color: black;
 }
 
 .submit-comment:disabled {
@@ -114,4 +123,3 @@
     font-size: 1.3rem;
     min-height: 200px;
 }
-

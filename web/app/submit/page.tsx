@@ -2,10 +2,16 @@
 import { useToast } from "@/toast";
 import { FormEvent } from "react";
 import "./page.css";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams, useRouter, redirect } from "next/navigation";
 import { useSession } from "next-auth/react";
 
 export default function Home() {
+  const session = useSession({
+    required: true,
+    onUnauthenticated() {
+      redirect("/api/auth/signin");
+    },
+  });
   const toast = useToast();
   const router = useRouter();
   const params = useSearchParams();
