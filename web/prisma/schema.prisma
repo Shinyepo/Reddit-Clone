@@ -18,9 +18,8 @@ model Post {
   updatedAt DateTime  @updatedAt
   title     String
   content   String
-  likes     Int
-  dislikes  Int
   comments  Comment[]
+  Likes     Likes[]
 }
 
 model Comment {
@@ -31,10 +30,9 @@ model Comment {
   postId    Int
   parentId  Int
   content   String
-  likes     Int
-  dislikes  Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  Likes     Likes[]
 }
 
 model User {
@@ -45,4 +43,16 @@ model User {
   username  String    @unique
   posts     Post[]
   comments  Comment[]
+  Likes     Likes[]
+}
+
+model Likes {
+  id        String   @id @default(uuid())
+  post      Post?    @relation(fields: [postId], references: [id])
+  postId    Int
+  comment   Comment? @relation(fields: [commentId], references: [id])
+  commentId Int?     @unique
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  like      Boolean
 }
