@@ -10,6 +10,7 @@ import "./page.css";
 import { FullPost } from "@/types/types";
 import { signIn, useSession } from "next-auth/react";
 import { ThreadCreateComment } from "@/components/threadCreateComment";
+import { Likes } from "@prisma/client";
 
 const getData = async (id: string) => {
   const res = await fetch("/api/thread/" + id);
@@ -35,6 +36,8 @@ export default function Home({ params }: { params: { slug: string } }) {
   const commentRef = useRef<HTMLDivElement | null>(null);
   const [showShare, setShowShare] = useState<Boolean>(false);
   const toast = useToast();
+  const [likes, setLikes] = useState<string>("0");
+  const [commentLikes, setCommentLikes] = useState<Likes[]>();
 
   useEffect(() => {
     (async () => {
@@ -43,6 +46,19 @@ export default function Home({ params }: { params: { slug: string } }) {
         return toast.open({ type: "error", message: "Could not load thread" });
       }
       setThread(res.data);
+
+      const postLikes = res.data.Likes.filter((x) => {
+        if (x.commentId === null && x.postId === parseInt(params.slug))
+          return 1;
+        return;
+      });
+      const count = postLikes.reduce((n, x) => (x.like ? n + 1 : n - 1), 0);
+      setLikes(count.toString());
+      const commentLikesList = res.data.Likes.filter((x) => {
+        if (x.commentId !== null) return 1;
+        return;
+      });
+      setCommentLikes(commentLikesList);
     })();
   }, []);
 
@@ -52,7 +68,9 @@ export default function Home({ params }: { params: { slug: string } }) {
   if (thread) {
     body = (
       <div className="item1 thread-content">
-        <ThreadLikes />
+        <div data-testid="thread-likes" className="thread-likes">
+          <ThreadLikes postId={params.slug} count={likes} />
+        </div>
         <div className="thread-header">
           <div data-testid="thread-author" className="thread-author">
             Created by {thread.author?.username!} -{" "}
@@ -70,12 +88,24 @@ export default function Home({ params }: { params: { slug: string } }) {
         />
       </div>
     );
-
     comments = (
       <>
         {thread.comments && thread.comments.length > 0 ? (
-          thread.comments!.map((x, idx) => {
-            return <ThreadComment key={idx} author={x.author} comment={x} />;
+          thread.comments.map((x, idx) => {
+            const clCount = commentLikes?.filter((a) => a.commentId === x.id);
+            const count = clCount?.reduce(
+              (n, x) => (x.like ? n + 1 : n - 1),
+              0
+            );
+
+            return (
+              <ThreadComment
+                key={idx}
+                author={x.author}
+                comment={x}
+                count={count?.toString() ?? "0"}
+              />
+            );
           })
         ) : (
           <div className="no-comments">No Comments...</div>
@@ -97,7 +127,10 @@ export default function Home({ params }: { params: { slug: string } }) {
               thread={thread}
             />
           ) : (
-            <div className="thread-create-comment-auth" onClick={async () => await signIn()}>
+            <div
+              className="thread-create-comment-auth"
+              onClick={async () => await signIn()}
+            >
               Sign in to create a comment
             </div>
           )}

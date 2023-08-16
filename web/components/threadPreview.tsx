@@ -10,12 +10,11 @@ import { formatTimeAgo } from "@/utils/relativeTime";
 // TODO: make the like and dislike button clickable with onClick event
 
 interface Props {
-  id: number;
+  id: string;
   author: string;
   title: string;
   content: string;
-  likes: number;
-  dislikes: number;
+  count?: string;
   createdAt: Date;
   show: Boolean;
   setShow: Dispatch<SetStateAction<Boolean>>;
@@ -27,10 +26,9 @@ export const ThreadPreview: FC<Props> = ({
   title,
   content,
   createdAt,
-  dislikes,
-  likes,
   show,
-  setShow
+  setShow,
+  count,
 }) => {
   const router = useRouter();
 
@@ -43,7 +41,9 @@ export const ThreadPreview: FC<Props> = ({
         router.push("/thread/" + id);
       }}
     >
-      <ThreadLikes />
+      <div data-testid="thread-likes" className="thread-likes">
+        <ThreadLikes postId={id} count={count ?? "0"} />
+      </div>
       <div className="thread-data">
         <div data-testid="thread-author" className="preview-author">
           created by {author} - {formatTimeAgo(createdAt)}
@@ -55,7 +55,7 @@ export const ThreadPreview: FC<Props> = ({
           {content.length > 360 ? content.slice(0, 360) + "..." : content}
         </div>
       </div>
-      <ThreadFooter id={id.toString()} showing={show} setShowing={setShow}/>
+      <ThreadFooter id={id.toString()} showing={show} setShowing={setShow} />
     </div>
   );
 };

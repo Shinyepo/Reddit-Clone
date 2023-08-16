@@ -50,11 +50,15 @@ export const ThreadCreateComment: FC<Props> = ({
     if (req.status === 200) {
       const jsonData = await req.json();
       const data = jsonData.comment as CommentWithAuthor;
+      
+      
       setThread((prev): FullPost => {
-        return {
+        const returnData = {
           ...prev!,
           comments: [data, ...prev!.comments!],
         } as FullPost;
+        
+        return returnData;
       });
       setComment("");
       commentRef.current?.scrollIntoView({

@@ -11,7 +11,18 @@ export async function GET() {
       createdAt: "desc",
     },
     include: {
-      author: true,
+      author: {
+        select: {
+          username: true,
+        },
+      },
+      Likes: {
+        select: {
+          postId: true,
+          like: true,
+          commentId: true,
+        },
+      },
     },
   });
   return NextResponse.json({ posts: data });
@@ -27,8 +38,6 @@ export async function POST(request: NextRequest) {
       content,
       title,
       authorId: session.user.id,
-      likes: 0,
-      dislikes: 0,
     },
   });
   if (newPost.id) {

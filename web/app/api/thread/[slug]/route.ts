@@ -18,14 +18,36 @@ export async function GET(
       id,
     },
     include: {
-      author: true,
+      author: {
+        select: {
+          username: true,
+        },
+      },
       comments: {
         include: {
-          author: true,
+          author: {
+            select: {
+              username: true,
+            },
+          },
+          Likes: {
+            select: {
+              commentId: true,
+              postId: true,
+              like: true,
+            },
+          },
         },
         orderBy: {
-          createdAt: "desc"
-        }
+          createdAt: "desc",
+        },
+      },
+      Likes: {
+        select: {
+          commentId: true,
+          postId: true,
+          like: true,
+        },
       },
     },
   });
@@ -50,13 +72,22 @@ export async function POST(req: NextRequest) {
       postId,
       authorId: session.user.id,
       content,
-      dislikes: 0,
-      likes: 0,
       parentId: 0,
     },
     include: {
-      author: true
-    }
+      author: {
+        select: {
+          username: true,
+        },
+      },
+      Likes: {
+        select: {
+          commentId: true,
+          postId: true,
+          like: true,
+        },
+      },
+    },
   });
 
   if (!comment.id) {
