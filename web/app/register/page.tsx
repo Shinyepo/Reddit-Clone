@@ -1,3 +1,4 @@
+"use client";
 import { useSession } from "next-auth/react";
 import { RegisterForm } from "./form";
 import { useRouter } from "next/navigation";
