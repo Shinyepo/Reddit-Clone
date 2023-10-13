@@ -8,43 +8,24 @@ interface Props {
   postId: string;
   commentId?: string;
   count: string;
+  fetchData: (
+    userId: string,
+    postId: string,
+    like: boolean,
+    commentId?: string
+  ) => Promise<
+    | {
+        data: null;
+        ok: boolean;
+      }
+    | {
+        data: boolean;
+        ok: boolean;
+      }
+  >;
 }
 
-const ToggleLike = async (
-  userId: string,
-  postId: string,
-  like: boolean,
-  commentId?: string
-) => {
-  const data = {
-    userId,
-    postId,
-    like,
-    commentId,
-  };
-
-  const res = await fetch("/api/like", {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  if (!res || !res.ok)
-    return {
-      data: null,
-      ok: false,
-    };
-  const resData = (await res.json()) as { created: boolean; message: string };
-
-  return {
-    data: resData.created,
-    ok: true,
-  };
-};
-
-export const ThreadLikes: FC<Props> = ({ postId, commentId, count }) => {
+export const ThreadLikes: FC<Props> = ({ postId, commentId, count, fetchData }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [likes, setLikes] = useState<string>(count);
   const session = useSession();
@@ -56,7 +37,7 @@ export const ThreadLikes: FC<Props> = ({ postId, commentId, count }) => {
     setLoading(true);
     const newCount = parseInt(likes);
     if (e.currentTarget.classList.contains("dislike")) {
-      const res = await ToggleLike(
+      const res = await fetchData(
         session.data.user!.id,
         postId,
         false,
@@ -66,13 +47,13 @@ export const ThreadLikes: FC<Props> = ({ postId, commentId, count }) => {
       if (res.data) setLikes((newCount - 1).toString());
       else setLikes((newCount - 2).toString());
     } else {
-      const res = await ToggleLike(
+      const res = await fetchData(
         session.data.user!.id,
         postId,
         true,
         commentId
       );
-      if (!res.ok) return setLoading(false);      
+      if (!res.ok) return setLoading(false);
       if (res.data) setLikes((newCount + 1).toString());
       else setLikes((newCount + 2).toString());
     }

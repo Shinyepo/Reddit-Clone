@@ -12,6 +12,7 @@ export const RegisterForm = () => {
   });
 
   const onSubmit = async (e: React.FormEvent) => {
+    "use server";
     e.preventDefault();
     setLoading(true);
 
@@ -26,7 +27,7 @@ export const RegisterForm = () => {
 
       setLoading(false);
       if (!res.ok) {
-        alert((await res.json()).message);
+        alert("Something went wrong while processing your request.");
         return;
       }
 

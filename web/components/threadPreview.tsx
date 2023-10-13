@@ -18,6 +18,21 @@ interface Props {
   createdAt: Date;
   show: Boolean;
   setShow: Dispatch<SetStateAction<Boolean>>;
+  fetchData: (
+    userId: string,
+    postId: string,
+    like: boolean,
+    commentId?: string
+  ) => Promise<
+    | {
+        data: null;
+        ok: boolean;
+      }
+    | {
+        data: boolean;
+        ok: boolean;
+      }
+  >;
 }
 
 export const ThreadPreview: FC<Props> = ({
@@ -29,6 +44,7 @@ export const ThreadPreview: FC<Props> = ({
   show,
   setShow,
   count,
+  fetchData,
 }) => {
   const router = useRouter();
 
@@ -42,7 +58,7 @@ export const ThreadPreview: FC<Props> = ({
       }}
     >
       <div data-testid="thread-likes" className="thread-likes">
-        <ThreadLikes postId={id} count={count ?? "0"} />
+        <ThreadLikes fetchData={fetchData} postId={id} count={count ?? "0"} />
       </div>
       <div className="thread-data">
         <div data-testid="thread-author" className="preview-author">

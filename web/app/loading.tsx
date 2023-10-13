@@ -1,5 +1,3 @@
-import { ThreadFooter } from "../components/threadFooter";
-import { ThreadLikes } from "../components/threadLikes";
 import "../components/threadPreview.css";
 
 export default function Loading() {

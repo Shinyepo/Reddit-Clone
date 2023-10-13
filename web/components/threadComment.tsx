@@ -9,11 +9,30 @@ interface Props {
   comment: Comment;
   author: User | null;
   count?: string;
+  fetchData: (
+    userId: string,
+    postId: string,
+    like: boolean,
+    commentId?: string
+  ) => Promise<
+    | {
+        data: null;
+        ok: boolean;
+      }
+    | {
+        data: boolean;
+        ok: boolean;
+      }
+  >;
 }
 
-export const ThreadComment: FC<Props> = ({ author, comment, count }) => {
+export const ThreadComment: FC<Props> = ({
+  author,
+  comment,
+  count,
+  fetchData,
+}) => {
   const { content, createdAt, updatedAt } = comment;
-  
 
   return (
     <div className="thread-comment">
@@ -32,6 +51,7 @@ export const ThreadComment: FC<Props> = ({ author, comment, count }) => {
       <div data-testid="comment-footer" className="comment-footer">
         <div data-testid="comment-likes" className="comment-likes">
           <ThreadLikes
+            fetchData={fetchData}
             postId={comment.postId.toString()}
             commentId={comment.id.toString()}
             count={count ?? "0"}

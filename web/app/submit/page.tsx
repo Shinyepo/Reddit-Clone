@@ -18,6 +18,7 @@ export default function Home() {
   const title = params.get("title");
   const { data } = useSession();
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    "use server";
     e.preventDefault();
     const { title, content } = e.target as typeof e.target & {
       title: { value: string };

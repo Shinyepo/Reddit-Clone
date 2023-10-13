@@ -5,6 +5,15 @@ header {
   background-color: #52616B;
 }
 
+.register {
+
+  display: flex;
+}
+
+.register div {
+  cursor: pointer;
+}
+
 .header-container {
   /* max-width: 1300px; */
   height: 100%;
@@ -45,10 +54,12 @@ header {
   position: relative;
 }
 
-.profile-dropdown-button, .profile-dropdown-content div {
+.profile-dropdown-button,
+.profile-dropdown-content div {
   padding: 16px;
   cursor: pointer;
 }
+
 .profile-dropdown-content {
   display: none;
   position: absolute;

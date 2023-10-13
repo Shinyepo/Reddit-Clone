@@ -11,6 +11,7 @@ import { FullPost } from "@/types/types";
 import { signIn, useSession } from "next-auth/react";
 import { ThreadCreateComment } from "@/components/threadCreateComment";
 import { Likes } from "@prisma/client";
+import { ToggleLike } from "@/utils/toggleLike";
 
 const getData = async (id: string) => {
   const res = await fetch("/api/thread/" + id);
@@ -69,7 +70,11 @@ export default function Home({ params }: { params: { slug: string } }) {
     body = (
       <div className="item1 thread-content">
         <div data-testid="thread-likes" className="thread-likes">
-          <ThreadLikes postId={params.slug} count={likes} />
+          <ThreadLikes
+            fetchData={ToggleLike}
+            postId={params.slug}
+            count={likes}
+          />
         </div>
         <div className="thread-header">
           <div data-testid="thread-author" className="thread-author">
@@ -101,6 +106,7 @@ export default function Home({ params }: { params: { slug: string } }) {
             return (
               <ThreadComment
                 key={idx}
+                fetchData={ToggleLike}
                 author={x.author}
                 comment={x}
                 count={count?.toString() ?? "0"}

@@ -6,6 +6,7 @@ import { Likes, Post, User } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
 import "./page.css";
+import { ToggleLike } from "@/utils/toggleLike";
 
 const getPosts = async () => {
   const res = await fetch("/api/posts");
@@ -67,6 +68,7 @@ export default function Home() {
 
             return (
               <ThreadPreview
+                fetchData={ToggleLike}
                 key={post.id}
                 id={post.id.toString()}
                 author={post.author!.username!}
