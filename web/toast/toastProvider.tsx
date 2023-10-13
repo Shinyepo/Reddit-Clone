@@ -18,7 +18,7 @@ function generateUEID() {
   return first;
 }
 
-export const ToastProvider = (props) => {
+export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
   const [toasts, setToasts] = useState<ToastProps[]>([]);
   const [ready, setReady] = useState(false);
   const open = ({ type, message }: ToastProps) => {
@@ -36,23 +36,29 @@ export const ToastProvider = (props) => {
 
   const contextValue = useMemo(() => ({ open }), []);
 
-  useEffect(()=>{
-    setReady(true);    
-  })
-  
+  useEffect(() => {
+    setReady(true);
+  });
 
   return (
     <ToastContext.Provider value={contextValue}>
-      {props.children}
+      {children}
 
-      {ready ? createPortal(
-        <div className="toast-container">
-          {toasts.map((toast) => (
-            <Toast key={toast.id} type={toast.type} message={toast.message} close={() => close(toast.id!)} />
-          ))}
-        </div>,
-        document.body
-      ) : null}
+      {ready
+        ? createPortal(
+            <div className="toast-container">
+              {toasts.map((toast) => (
+                <Toast
+                  key={toast.id}
+                  type={toast.type}
+                  message={toast.message}
+                  close={() => close(toast.id!)}
+                />
+              ))}
+            </div>,
+            document.body
+          )
+        : null}
     </ToastContext.Provider>
   );
 };

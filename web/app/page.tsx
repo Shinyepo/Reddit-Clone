@@ -110,15 +110,34 @@ export default function Home() {
         {body}
       </div>
       <div data-testid="sidebar" className="sidebar">
-        <div data-testid="about" className="about">
-          <div className="about-header" role="heading">
+        <div data-testid="about" className="container">
+          <div className="header" role="heading">
             A header for about section
           </div>
-          <div className="about-content">
+          <div className="content">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos
             consectetur illo molestiae minima nesciunt dolores, ea adipisci
             maxime eius, nulla blanditiis earum. Necessitatibus quam adipisci
             ducimus possimus ab animi dolorem?
+          </div>
+        </div>
+        <div data-testid="rules" className="container">
+          <div className="header" role="heading">
+            General Rules
+          </div>
+          <div className="content">
+            <ul className="rules-list">
+              <li>Dont be mean</li>
+              <li>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Dignissimos consectetur illo molestiae minima nesciunt dolores,
+                ea adipisci
+              </li>
+              <li>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Dignissimos.
+              </li>
+            </ul>
           </div>
         </div>
       </div>

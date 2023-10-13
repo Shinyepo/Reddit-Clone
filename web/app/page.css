@@ -57,23 +57,37 @@
     padding: 15px 20px;
 }
 
-.about-header {
+.header {
     background-color: #C9D6DF;
     border-start-start-radius: 10px;
     border-start-end-radius: 10px;
     color: black;
 }
 
-.about-content {
+.content {
     background-color: #52616B;
     border-end-start-radius: 10px;
     border-end-end-radius: 10px;
 }
 
-.about-content,
-.about-header {
+.content,
+.header {
     width: 100%;
     padding: 10px;
+}
+
+.container {
+    margin-bottom: 15px;
+}
+
+.rules-list {
+    list-style-type: decimal;
+    padding: 0 15px;
+
+}
+
+.rules-list>li {
+    padding: 5px 0;
 }
 
 .create-thread {

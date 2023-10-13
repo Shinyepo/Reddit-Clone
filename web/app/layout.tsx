@@ -4,7 +4,7 @@ import { NextAuthProvider } from "@/app/providers/sessionProvider";
 import { Header } from "@/components/header";
 
 export const metadata = {
-  title: "Epodit",
+  title: "Epoddit",
   description: "A reddit clone",
 };
 
